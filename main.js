@@ -34,6 +34,8 @@ function preload() {
 let platforms;
 let player;
 let cursors;
+let score = 0;
+let scoreText;
 let stars;
 function create() {
   this.add.image(400, 300, "sky");
@@ -87,12 +89,17 @@ function create() {
   this.physics.add.collider(stars, platforms);
 
   this.physics.add.overlap(player, stars, collectStar, null, this);
+  scoreText = this.add.text(16, 16, "score: 0", {
+    fontSize: "32px",
+    fill: "#000",
+  });
 }
 
 function collectStar(player, star) {
   star.disableBody(true, true);
 
-  console.log(star);
+  score += 10;
+  scoreText.setText("Score:" + score);
 }
 function update() {
   if (cursors.left.isDown) {
